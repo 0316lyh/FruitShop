@@ -30,4 +30,10 @@ public class UserController {
         }
         return new Result(Code.LOGIN_ERR);
     }
+
+    @PostMapping("/register")
+    public Result register(@RequestBody User user) {
+        boolean register = userService.register(user);
+        return new Result(register != false ? Code.REGISTER_OK : Code.REGISTER_ERR);
+    }
 }
