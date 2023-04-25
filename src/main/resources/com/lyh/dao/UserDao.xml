@@ -5,6 +5,8 @@
 <mapper namespace="com.lyh.dao.UserDao">
 
     <select id="findById" resultType="com.lyh.domain.User">
-        select username from user where id = #{id}
+        select username
+        from user
+        where id = #{id}
     </select>
 </mapper>

@@ -23,13 +23,13 @@ public class ManageController {
     @Autowired
     private ManageService manageService;
 
-/*    @PostMapping("/login")
+    @PostMapping("/login")
     public Result login(@RequestBody Manage manage, HttpSession session) {
-        boolean login = ManageService.login(manage);
+        boolean login = manageService.login(manage);
         if (login) {
             session.setAttribute("user", manage.getUsername());
             return new Result(Code.LOGIN_OK);
         }
         return new Result(Code.LOGIN_ERR);
-    }*/
+    }
 }
