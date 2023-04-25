@@ -3,6 +3,7 @@ package com.lyh.dao;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lyh.domain.Manage;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 /**
  * @author :liangyuhang1
@@ -11,5 +12,11 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface ManageDao extends BaseMapper<Manage> {
-    //Manage selectById(Integer id);
+    /**
+     * 管理员登录
+     * @param manage
+     * @return
+     */
+    @Select("select * from manage where username=#{username} and password=#{password}")
+    Manage login(Manage manage);
 }
