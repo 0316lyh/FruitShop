@@ -16,9 +16,10 @@ import java.util.List;
  */
 @Mapper
 public interface ItemDao extends BaseMapper<Item> {
-    @Select("select * from item")
-    List<Item> getAll();
-
-
+    /**
+     * 批量删除
+     * @param ids
+     * @return
+     */
     int deleteByIds(@Param("ids") int[] ids);
 }

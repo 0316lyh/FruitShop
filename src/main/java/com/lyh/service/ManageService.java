@@ -9,5 +9,10 @@ import com.lyh.domain.Manage;
  * @date :2023/4/2512:31
  */
 public interface ManageService {
+    /**
+     * 管理员登陆
+     * @param manage
+     * @return
+     */
     boolean login(Manage manage);
 }

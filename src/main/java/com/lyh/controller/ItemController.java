@@ -43,7 +43,7 @@ public class ItemController {
 
     @DeleteMapping
     public Result deleteByIds(@RequestBody int[] ids) {
-        System.out.println(ids);
+        System.out.println(ids.toString());
         boolean delete = itemService.deleteByIds(ids);
         return new Result(delete != false?Code.DELETE_OK:Code.DELETE_ERR);
     }
