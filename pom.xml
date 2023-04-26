@@ -72,8 +72,17 @@
         <!--编译静态资源-->
         <resources>
             <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <!-- 这里的** 代表会查看多级目录下，*代表单级目录-->
+                    <include>**/*.*</include>
+                </includes>
+            </resource>
+
+            <resource>
                 <directory>src/main/resources</directory>
                 <includes>
+                    <include>**/*.*</include>
                     <include>**/*.js</include>
                     <include>**/*.html</include>
                     <include>**/*.css</include>

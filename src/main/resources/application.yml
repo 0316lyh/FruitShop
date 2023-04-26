@@ -7,3 +7,10 @@ spring:
     username: root
     password: "020316"
     url: jdbc:mysql://localhost:3306/fruitshop
+
+#mybatis-plus
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    banner: false

@@ -11,4 +11,7 @@ import java.util.List;
  */
 public interface ItemService {
     List<Item> getAll();
+    boolean insert(Item item);
+    boolean deleteById(Integer id);
+    boolean deleteByIds(int[] ids);
 }

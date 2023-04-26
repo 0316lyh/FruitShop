@@ -28,8 +28,8 @@ class UserDaoTests {
     void testLogin() {
 /*        User user = new User("lyh", "020316");
         System.out.println(userService.login(user));*/
-        List<Item> all = itemDao.getAll();
-        System.out.println(all);
+        User user = userDao.findById(1);
+        System.out.println(user);
     }
 
     @Test

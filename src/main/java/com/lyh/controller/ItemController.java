@@ -3,9 +3,7 @@ package com.lyh.controller;
 import com.lyh.domain.Item;
 import com.lyh.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,5 +26,25 @@ public class ItemController {
         } else {
             return new Result(Code.GET_OK, items);
         }
+    }
+
+    @PostMapping
+    public Result insert(@RequestBody Item item) {
+        System.out.println(item);
+        boolean insert = itemService.insert(item);
+        return new Result(insert == true ? Code.SAVE_OK : Code.SAVE_ERR);
+    }
+
+    @DeleteMapping("/{id}")
+    public Result deleteById(@PathVariable Integer id) {
+        boolean delete = itemService.deleteById(id);
+        return new Result(delete != false?Code.DELETE_OK:Code.DELETE_ERR);
+    }
+
+    @DeleteMapping
+    public Result deleteByIds(@RequestBody int[] ids) {
+        System.out.println(ids);
+        boolean delete = itemService.deleteByIds(ids);
+        return new Result(delete != false?Code.DELETE_OK:Code.DELETE_ERR);
     }
 }

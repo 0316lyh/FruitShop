@@ -14,8 +14,8 @@ import java.util.List;
 class ItemDaoTests {
     @Autowired
     private ItemDao itemDao;
-//    @Autowired
-//    private ItemService itemService;
+    @Autowired
+    private ItemService itemService;
 
     @Test
     void testGetAll() {
@@ -26,8 +26,10 @@ class ItemDaoTests {
     }
 
     @Test
-    void testAdd() {
-
+    void testDeleteByIds() {
+        int[] ids = new int[]{37,40};
+        int delete = itemDao.deleteByIds(ids);
+        System.out.println(delete);
     }
 
 
