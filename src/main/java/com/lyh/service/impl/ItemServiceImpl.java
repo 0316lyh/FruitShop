@@ -21,6 +21,6 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public List<Item> getAll() {
         List<Item> items = itemDao.selectList(null);
-        return null;
+        return items;
     }
 }

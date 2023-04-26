@@ -1,5 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="../plugins/elementui/index.css">
+
+    <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div id="app">
+    <!--登录表单-->
+    <el-form ref="form" :model="loginUser" label-width="80px">
+        <el-form-item label="账号">
+            <el-input v-model="loginUser.username"></el-input>
+        </el-form-item>
+        <el-form-item label="密码">
+            <el-input v-model="loginUser.password"></el-input>
+        </el-form-item>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <template>
+            <el-radio v-model="adminOrUser" label="0">用户</el-radio>
+            <el-radio v-model="adminOrUser" label="1">管理员</el-radio>
+        </template>
+        <el-form-item>
+            <el-button type="primary" @click="login">登录</el-button>
+            <el-button>注册</el-button>
+        </el-form-item>
+    </el-form>
+</div>
+</body>
+
 <!-- 引入组件库 -->
 
 <script src="../js/vue.js"></script>
@@ -9,30 +43,37 @@
 <!--<script type="text/javascript" src="../js/jquery.min.js"></script>-->
 
 <script src="../js/axios-0.18.0.js"></script>
-<head>
-    <meta charset="UTF-8">
-    <title>登录</title>
-    1
-
-    <div id="app">
-        <el-button type="primary" icon="el-icon-search">搜索</el-button>
-        <el-input placeholder="账号" v-model="username"></el-input>
-        <el-input placeholder="请输入密码" v-model="password" show-password="false"></el-input>
-    </div>
-
-</head>
-<body>
-
-</body>
 
 <script>
     var vue = new Vue({
         el: '#app',
         data: {
-            username: '',
-            password: ''
+            //登录信息
+            loginUser: {username: "", password: ""},
+            //0为用户登陆  1为管理员登录
+            adminOrUser: -1,
         },
         methods: {
+            login() {
+                if (this.adminOrUser == 0) {
+                    this.userLogin();
+                } else {
+                    this.adminLogin();
+                }
+            },
+            adminLogin() {
+                axios.post("/manages/login", this.loginUser).then((res) => {
+                    if (res.data.code == 20051) {
+                        alert(20051)
+                        window.location.href = "/pages/admin/admin_main.html";
+                    } else {
+                        this.$message.error('密码错误!请重试!');
+                    }
+                });
+            },
+            userLogin() {
+
+            },
 
         }
     })
