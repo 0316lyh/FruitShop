@@ -28,7 +28,7 @@
         </template>
         <el-form-item>
             <el-button type="primary" @click="login">登录</el-button>
-            <el-button>注册</el-button>
+            <el-button @click="register">注册</el-button>
         </el-form-item>
     </el-form>
 </div>
@@ -45,6 +45,7 @@
 <script src="../js/axios-0.18.0.js"></script>
 
 <script>
+
     var vue = new Vue({
         el: '#app',
         data: {
@@ -57,23 +58,49 @@
             login() {
                 if (this.adminOrUser == 0) {
                     this.userLogin();
-                } else {
+                }
+                if (this.adminOrUser == 1) {
                     this.adminLogin();
                 }
             },
+            //管理员登录
             adminLogin() {
                 axios.post("/manages/login", this.loginUser).then((res) => {
                     if (res.data.code == 20051) {
-                        alert(20051)
-                        window.location.href = "/pages/admin/admin_main.html";
+                        this.$message.success('登陆成功~');
+
+                        setTimeout(() => {
+                            window.location.href = "/pages/admin/admin_main.html";
+                        }, 1000);
+
                     } else {
                         this.$message.error('密码错误!请重试!');
                     }
                 });
             },
+            //用户登陆
             userLogin() {
 
             },
+            //用户注册
+            register() {
+                console.log(this.loginUser);
+
+                axios.post("http://localhost:8080/users/register", this.loginUser).then((res) => {
+                    // 注册成功
+                    if (res.data.code == 20061) {
+                        this.$message.success('注册成功, 请重新登录');
+                        setTimeout(() => {
+                            location.reload();
+                        },1000);
+                        /*setTimeout(() => {
+                            window.location.href = "/pages/user/user_main.html";
+                        }, 1000);*/
+                    } else {
+
+                    }
+                })
+            }
 
         }
     })
