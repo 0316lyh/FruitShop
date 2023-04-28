@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>订单管理</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="../../plugins/elementui/index.css">
+
+    <link rel="stylesheet" href="../../plugins/font-awesome/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="../../css/style.css">
+
+    <!--<iframe id="f2" src='/pages/admin/top.html'></iframe>-->
+
+</head>
+<body>
+<div id="app">
+    <!--导航栏-->
+    <el-row>
+        <el-menu :default-active="activeIndex2" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+            <el-menu-item index="1"><a href="/pages/admin/admin_main.html" target="_self">商品管理</a></el-menu-item>
+            <el-menu-item index="2"><a href="/pages/admin/order_manage.html" target="_self">订单管理</a></el-menu-item>
+        </el-menu>
+    </el-row>
+    <div class="box">
+        <el-low>
+            <!--批量删除-->
+            <el-button type="danger" >批量删除</el-button>
+            <!--新增按钮-->
+            <el-button type="primary" >新增</el-button>
+        </el-low>
+
+        <!--展示列表-->
+        <template>
+            <el-table
+                    :data="tableData"
+                    stripe
+                    style="width: 100%"
+                    :row-class-name="tableRowClassName"
+                    @selection-change="handleSelectionChange">
+                <el-table-column
+                        type="selection"
+                        width="55">
+                </el-table-column>
+
+
+                <el-table-column
+                        prop="user_id"
+                        label="账号id"
+                        align="center">
+                </el-table-column>
+                <el-table-column
+                        prop="item_name"
+                        label="商品"
+                        align="center">
+                </el-table-column>
+                <el-table-column
+                        prop="num"
+                        align="center"
+                        label="购买数量">
+                </el-table-column>
+                <el-table-column
+                        prop="money"
+                        align="center"
+                        label="金额">
+                </el-table-column>
+                <el-table-column
+                        align="center"
+                        label="操作">
+                    <template slot-scope="scope">
+                        <el-row>
+                            <el-button type="primary" >修改</el-button>
+                            <!--<el-button type="danger" @click="deleteById(scope.row.id)">删除</el-button>-->
+                            <el-button type="danger" >删除</el-button>
+                        </el-row>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </template>
+    </div>
+
+</div>
+
+</body>
+<!-- 引入组件库 -->
+
+<script src="../../js/vue.js"></script>
+
+<script src="../../plugins/elementui/index.js"></script>
+
+<!--<script type="text/javascript" src="../js/jquery.min.js"></script>-->
+
+<script src="../../js/axios-0.18.0.js"></script>
+
+<script>
+    var vue = new Vue({
+        el: "#app",
+        data: {
+            tableData: [],
+            //导航菜单栏
+            activeIndex: '1',
+            activeIndex2: '2'
+        },
+        methods: {
+            // 导航菜单栏
+            handleSelect(key, keyPath) {
+                console.log(key, keyPath);
+            },
+            // 获取订单列表
+            getAll() {
+                axios.get("/orderForms").then((res) => {
+                    if (res.data.code == 20041) {
+                        this.tableData = res.data.data;
+                    } else {
+                        this.$message({
+                            message: res.data.msg,
+                            type: 'warning'
+                        });
+                    }
+                });
+            },
+
+            //遍历
+            tableRowClassName({row, rowIndex}) {
+                if (rowIndex === 1) {
+                    return 'warning-row';
+                } else if (rowIndex === 3) {
+                    return 'success-row';
+                }
+                return '';
+            },
+            // 复选框选中后执行的方法
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
+            },
+
+
+        },
+        mounted() {
+            this.getAll();
+        }
+    })
+</script>
+</html>

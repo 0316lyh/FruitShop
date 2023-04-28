@@ -65,7 +65,13 @@
             },
             //管理员登录
             adminLogin() {
-                axios.post("/manages/login", this.loginUser).then((res) => {
+                // 检验账号密码是否为空
+                if (this.loginUser.username === "" || this.loginUser.password === "") {
+                    this.$message.error('账号和密码不能为空, 请重试..');
+                    return;
+                }
+
+                axios.post("http://localhost:8080/manages/login", this.loginUser).then((res) => {
                     if (res.data.code == 20051) {
                         this.$message.success('登陆成功~');
 
@@ -80,29 +86,46 @@
             },
             //用户登陆
             userLogin() {
+                // 检验账号密码是否为空
+                if (this.loginUser.username === "" || this.loginUser.password === "") {
+                    this.$message.error('账号和密码不能为空, 请重试..');
+                    return;
+                }
 
+                axios.post("http://localhost:8080/users/login", this.loginUser).then((res) => {
+                    if (res.data.code == 20051) {
+                        this.$message.success('登陆成功~');
+
+                        setTimeout(() => {
+                            window.location.href = "/pages/user/user_main.html";
+                        }, 1000);
+
+                    } else {
+                        this.$message.error('密码错误!请重试!');
+                    }
+                });
             },
             //用户注册
             register() {
                 console.log(this.loginUser);
+                // 检验账号密码是否为空
+                if (this.loginUser.username === "" || this.loginUser.password === "") {
+                    this.$message.error('账号和密码不能为空, 请重试..');
+                    return;
+                }
 
                 axios.post("http://localhost:8080/users/register", this.loginUser).then((res) => {
                     // 注册成功
                     if (res.data.code == 20061) {
                         this.$message.success('注册成功, 请重新登录');
-                        setTimeout(() => {
-                            location.reload();
-                        },1000);
-                        /*setTimeout(() =>
-                        {
-                            window.location.href = "/pages/user/user_main.html";
-                        }, 1000);*/
                     } else {
-
+                        this.$message.error('注册失败, 请重试..');
                     }
+                    setTimeout(() => {
+                        location.reload();
+                    },1000);
                 })
             }
-
         }
     })
 </script>

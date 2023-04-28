@@ -9,19 +9,24 @@
     <link rel="stylesheet" href="../../plugins/font-awesome/css/font-awesome.min.css">
 
     <link rel="stylesheet" href="../../css/style.css">
+
 </head>
 <body>
+<!--引入导航栏-->
 <div id="app">
     <el-row>
-        <h1>后台管理</h1>
+        <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+            <el-menu-item index="1"><a href="/pages/admin/admin_main.html" target="_self">商品管理</a></el-menu-item>
+            <el-menu-item index="2"><a href="/pages/admin/order_manage.html" target="_self">订单管理</a></el-menu-item>
+        </el-menu>
     </el-row>
 
     <div class="box">
-        <!--批量删除-->
-        <el-button type="danger" @click="deleteByIds">批量删除</el-button>
-
-        <!--新增按钮-->
         <el-low>
+            <!--批量删除-->
+            <el-button type="danger" @click="deleteByIds">批量删除</el-button>
+
+            <!--新增按钮-->
             <el-button type="primary" @click="addItem1">新增</el-button>
         </el-low>
         <!--新增水果的列表-->
@@ -49,7 +54,6 @@
                 </el-form-item>
             </el-form>
         </el-dialog>
-
 
 
         <!--展示表单-->
@@ -124,7 +128,10 @@
             // 复选框选中数据集合
             multipleSelection: [],
             //批量删除被选中的Ids
-            selectedIds: []
+            selectedIds: [],
+            //导航菜单
+            activeIndex: '1',
+            activeIndex2: '2'
         },
         methods: {
             //获取水果列表
@@ -244,6 +251,10 @@
                         message: '已取消删除'
                     });
                 });
+            },
+            //导航菜单栏
+            handleSelect(key, keyPath) {
+                console.log(key, keyPath);
             }
         },
         //钩子函数，VUE对象初始化完成后自动执行

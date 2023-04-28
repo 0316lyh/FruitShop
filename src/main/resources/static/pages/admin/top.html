@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>top</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="../../plugins/elementui/index.css">
+
+    <link rel="stylesheet" href="../../plugins/font-awesome/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+<div id="app">
+    <el-low>
+        <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+            <el-menu-item index="1"><a href="/pages/admin/admin_main.html" target="_self">商品管理</a></el-menu-item>
+            <el-menu-item index="2"><a href="/pages/admin/order_manage.html" target="_self">订单管理</a></el-menu-item>
+        </el-menu>
+    </el-low>
+</div>
+</body>
+<!-- 引入组件库 -->
+
+<script src="../../js/vue.js"></script>
+
+<script src="../../plugins/elementui/index.js"></script>
+
+<!--<script type="text/javascript" src="../js/jquery.min.js"></script>-->
+
+<script src="../../js/axios-0.18.0.js"></script>
+
+<script>
+    var vue = new Vue({
+        el: "#app",
+        data: {
+            activeIndex: '1',
+            activeIndex2: '1'
+        },
+        methods: {
+            handleSelect(key, keyPath) {
+                console.log(key, keyPath);
+            }
+        },
+        mounted() {
+
+        }
+    })
+</script>
+</html>
